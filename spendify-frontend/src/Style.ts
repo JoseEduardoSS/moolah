@@ -9,5 +9,5 @@ export const AppContainer = styled("div")({
   gridTemplateAreas: ". .",
   padding: "20px",
   rowGap: "3rem",
-  columnGap: "3rem"
+  columnGap: "3rem",
 });
