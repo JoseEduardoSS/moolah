@@ -1,6 +1,7 @@
 import {Body, LoginButton, LoginContainer, LoginInput, LoginTitle} from "./Styles";
+import React from "react";
 
-const Login = () => {
+const Login: React.FC = () => {
     return (
         <Body>
             <LoginContainer>
