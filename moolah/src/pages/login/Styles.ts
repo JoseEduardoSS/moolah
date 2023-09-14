@@ -1,22 +1,19 @@
-import {Button, styled, TextField} from "@mui/material";
+import { Button, styled, TextField } from "@mui/material";
 
 export const Body = styled("body")({
-  background: "linear-gradient(to bottom, #3d3754, #000000)",
   height: "100vh",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
 });
 
-export const LoginContainer = styled("div")({
-  backgroundColor: "RGB(137, 136, 189, 0.1)",
+export const LoginContainer = styled("form")({
+  borderRadius: "2.5px",
+  boxShadow: "0 0 2.5px rgba(0, 0, 0, 0.2)",
+  height: "25rem",
+  width: "17.5rem",
   padding: "20px",
-  borderRadius: "10px",
-  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-  color: "#d4ccd8",
   textAlign: "center",
-  height: "45vh",
-  width: "15vw",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -24,7 +21,7 @@ export const LoginContainer = styled("div")({
 });
 
 export const LoginTitle = styled("h1")({
-  fontSize: "24px",
+  fontSize: "2rem",
   marginBottom: "20px",
 });
 
@@ -34,9 +31,8 @@ export const LoginInput = styled(TextField)({
   marginBottom: "10px",
 
   "& .MuiInputBase-root": {
-    color: "#d4ccd8",
     fontFamily: "Lato, sans-serif",
-  }
+  },
 });
 
 export const LoginButton = styled(Button)({
