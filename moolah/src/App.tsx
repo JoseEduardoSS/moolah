@@ -1,12 +1,11 @@
 import React from "react";
-import Login from "./pages/login";
+import AppRouter from "./routes";
 
 function App() {
   return (
-      <div>
-        <Login />
-        {/*<Dashboard />*/}
-      </div>
+    <main>
+      <AppRouter />
+    </main>
   );
 }
 
