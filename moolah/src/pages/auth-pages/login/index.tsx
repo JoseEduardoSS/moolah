@@ -1,19 +1,19 @@
 import {
   Body,
+  FormContainer,
+  FormTitle,
   LoginButton,
-  LoginContainer,
-  LoginInput,
-  LoginTitle,
-} from "./Styles";
+  FormInput,
+} from "../Styles";
 import React from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 
 const Login: React.FC = () => {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
-  const signIn = (event: React.SyntheticEvent) => {
+  const logIn = (event: React.SyntheticEvent) => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -28,16 +28,16 @@ const Login: React.FC = () => {
 
   return (
     <Body>
-      <LoginContainer onSubmit={signIn}>
-        <LoginTitle>Log In</LoginTitle>
-        <LoginInput
+      <FormContainer onSubmit={logIn}>
+        <FormTitle>Log In</FormTitle>
+        <FormInput
           variant="filled"
           type="text"
           placeholder="Email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
-        <LoginInput
+        <FormInput
           variant="filled"
           type="password"
           placeholder="Senha"
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
         <LoginButton type="submit" variant="outlined">
           Log In
         </LoginButton>
-      </LoginContainer>
+      </FormContainer>
     </Body>
   );
 };

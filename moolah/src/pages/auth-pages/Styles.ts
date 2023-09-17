@@ -7,7 +7,7 @@ export const Body = styled("body")({
   alignItems: "center",
 });
 
-export const LoginContainer = styled("form")({
+export const FormContainer = styled("form")({
   borderRadius: "2.5px",
   boxShadow: "0 0 2.5px rgba(0, 0, 0, 0.2)",
   height: "25rem",
@@ -20,12 +20,12 @@ export const LoginContainer = styled("form")({
   justifyContent: "center",
 });
 
-export const LoginTitle = styled("h1")({
+export const FormTitle = styled("h1")({
   fontSize: "2rem",
   marginBottom: "20px",
 });
 
-export const LoginInput = styled(TextField)({
+export const FormInput = styled(TextField)({
   width: "100%",
   padding: "10px",
   marginBottom: "10px",

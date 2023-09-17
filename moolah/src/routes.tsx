@@ -1,4 +1,4 @@
-import Login from "./pages/login";
+import Login from "./pages/auth-pages/login";
 import Dashboard from "./pages/dashboard";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
