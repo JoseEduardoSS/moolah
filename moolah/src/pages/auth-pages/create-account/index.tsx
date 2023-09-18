@@ -1,18 +1,35 @@
-import { Body, FormContainer, FormInput, LoginButton } from "../Styles";
+import {
+  Body,
+  FormContainer,
+  FormInput,
+  FormTitle,
+  LoginButton,
+} from "../Styles";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React from "react";
-
-const signUp = (event: React.SyntheticEvent) => {
-  console.log("signUp");
-};
+import { auth } from "../../../firebase";
 
 const CreateAccount: React.FC = () => {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
+  const signUp = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    console.log("sign up");
+  };
 
   return (
     <Body>
       <FormContainer onSubmit={signUp}>
+        <FormTitle>Create Account</FormTitle>
         <FormInput
           variant="filled"
           type="text"

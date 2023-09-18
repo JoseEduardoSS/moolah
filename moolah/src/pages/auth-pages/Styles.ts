@@ -1,6 +1,6 @@
 import { Button, styled, TextField } from "@mui/material";
 
-export const Body = styled("body")({
+export const Body = styled('div')({
   height: "100vh",
   display: "flex",
   justifyContent: "center",

@@ -23,7 +23,7 @@ const Login: React.FC = () => {
         console.log(error);
       });
 
-    console.log("sign in");
+    console.log("log in");
   };
 
   return (
