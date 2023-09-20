@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import {initializeApp} from "firebase/app";
+import {getAuth} from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: "moolah-3b093",
   storageBucket: "moolah-3b093.appspot.com",
   messagingSenderId: "609885956642",
-  appId: "1:609885956642:web:21462df95597fe494ef87b"
+  appId: "1:609885956642:web:21462df95597fe494ef87b",
 };
 
 // Initialize Firebase

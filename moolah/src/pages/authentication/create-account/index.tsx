@@ -1,21 +1,21 @@
 import {
   Body,
   FormContainer,
+  FormInput,
   FormTitle,
   LoginButton,
-  FormInput,
 } from "../Styles";
-import React from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
 import { auth } from "../../../firebase";
 
-const Login: React.FC = () => {
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+const CreateAccount: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const logIn = (event: React.SyntheticEvent) => {
+  const signUp = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
       })
@@ -23,13 +23,13 @@ const Login: React.FC = () => {
         console.log(error);
       });
 
-    console.log("log in");
+    console.log("sign up");
   };
 
   return (
     <Body>
-      <FormContainer onSubmit={logIn}>
-        <FormTitle>Log In</FormTitle>
+      <FormContainer onSubmit={signUp}>
+        <FormTitle>Create Account</FormTitle>
         <FormInput
           variant="filled"
           type="text"
@@ -45,11 +45,11 @@ const Login: React.FC = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
         <LoginButton type="submit" variant="outlined">
-          Log In
+          Sign Up
         </LoginButton>
       </FormContainer>
     </Body>
   );
 };
 
-export default Login;
+export default CreateAccount;
