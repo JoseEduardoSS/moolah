@@ -20,9 +20,9 @@ const Login: React.FC = () => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log("userCredential: ", userCredential);
         localStorage.setItem("user", JSON.stringify(userCredential.user));
         navigate("/");
+        console.log("userCredential: ", userCredential);
       })
       .catch((error) => {
         console.log("error: ", error);

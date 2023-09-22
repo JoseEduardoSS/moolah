@@ -22,8 +22,6 @@ const CreateAccount: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    console.log("sign up");
   };
 
   return (
