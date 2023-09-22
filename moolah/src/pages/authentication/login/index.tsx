@@ -8,8 +8,7 @@ import {
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
-import useAuthenticatedUser from "../../../state/auth/hooks/useAuthenticatedUser";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -21,13 +20,13 @@ const Login: React.FC = () => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
+        console.log("userCredential: ", userCredential);
+        localStorage.setItem("user", JSON.stringify(userCredential.user));
+        navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error: ", error);
       });
-
-    navigate("/");
   };
 
   return (
