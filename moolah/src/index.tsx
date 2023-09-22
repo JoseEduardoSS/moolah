@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
 import { register as registerServiceWorker } from "./serviceWorkerRegistration";
-import { RecoilRoot } from "recoil";
+import { createRoot } from "react-dom/client";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </React.StrictMode>,
-  document.getElementById("root"),
-);
+const root = document.getElementById("root");
+
+if (root) {
+  const reactRoot = createRoot(root);
+  reactRoot.render(<App />);
+} else {
+  console.error("Element with ID 'root' not found   in the DOM.");
+}
 
 registerServiceWorker();

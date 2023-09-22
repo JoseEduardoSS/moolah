@@ -8,10 +8,14 @@ import {
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
+import useAuthenticatedUser from "../../../state/auth/hooks/useAuthenticatedUser";
+import {useNavigate} from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const logIn = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -23,7 +27,7 @@ const Login: React.FC = () => {
         console.log(error);
       });
 
-    console.log("log in");
+    navigate("/");
   };
 
   return (
