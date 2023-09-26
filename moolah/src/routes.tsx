@@ -6,24 +6,24 @@ import CreateAccount from "./pages/authentication/create-account";
 import AuthGuard from "./guards/AuthGuard";
 
 const AppRouter = () => {
-  return (
-    <main>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <AuthGuard>
-                <Dashboard />
-              </AuthGuard>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/create-account" element={<CreateAccount />} />
-        </Routes>
-      </Router>
-    </main>
-  );
+	return (
+		<main>
+			<Router>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<AuthGuard>
+								<Dashboard />
+							</AuthGuard>
+						}
+					/>
+					<Route path="/login" element={<Login />} />
+					<Route path="/create-account" element={<CreateAccount />} />
+				</Routes>
+			</Router>
+		</main>
+	);
 };
 
 export default AppRouter;
