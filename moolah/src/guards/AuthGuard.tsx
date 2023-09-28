@@ -1,14 +1,13 @@
 import { Navigate } from "react-router-dom";
 import React from "react";
-import { auth } from "../firebase";
+import useGetUser from "../state/user/hooks/useGetUser";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
-  const localStorageUserString = localStorage.getItem("user");
-  const userObject = localStorageUserString && JSON.parse(localStorageUserString);
+	const user = useGetUser();
 
-  const user = userObject ? userObject : auth.currentUser;
+	console.log("user: ", user);
 
-  return <>{user ? children : <Navigate to="/login" replace />}</>;' '
+	return <>{user ? children : <Navigate to="/login" replace />}</>;
 };
 
 export default AuthGuard;
