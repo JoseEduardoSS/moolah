@@ -20,7 +20,7 @@ import { Add } from "@mui/icons-material";
 
 const Form: React.FC = () => {
   const [movementType, setMovementType] = useState<MovementType>(
-    MovementType.Input
+    MovementType.Input,
   );
   const [amount, setAmount] = useState<number>(0);
   const [tag, setTag] = useState<string>("");

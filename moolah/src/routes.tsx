@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CreateAccount from "./pages/authentication/create-account";
 import AuthGuard from "./guards/AuthGuard";
 
-const AppRouter = () => {
+const AppRouter: React.FC = () => {
   return (
     <main>
       <Router>
