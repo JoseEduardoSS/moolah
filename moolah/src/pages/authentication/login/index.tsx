@@ -9,16 +9,14 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
-import useLogIn from "../../../state/user/hooks/useLogIn";
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
 	const navigate = useNavigate();
-	const logIn = useLogIn();
 
-	const handleLogIn = async (event: React.SyntheticEvent) => {
+	const logIn = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 
 		try {
@@ -28,7 +26,7 @@ const Login: React.FC = () => {
 				password
 			);
 
-			logIn(userCredential.user);
+			localStorage.setItem("user", JSON.stringify(userCredential.user));
 
 			navigate("/");
 		} catch (error) {
@@ -38,7 +36,7 @@ const Login: React.FC = () => {
 
 	return (
 		<Body>
-			<FormContainer onSubmit={handleLogIn}>
+			<FormContainer onSubmit={logIn}>
 				<FormTitle>Log In</FormTitle>
 				<FormInput
 					variant="filled"
