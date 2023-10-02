@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
+import { LoginOutlined } from "@mui/icons-material";
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
@@ -45,7 +46,11 @@ const Login: React.FC = () => {
 					value={password}
 					onChange={(event) => setPassword(event.target.value)}
 				/>
-				<LoginButton type="submit" variant="outlined">
+				<LoginButton
+					type="submit"
+					variant="outlined"
+					endIcon={<LoginOutlined />}
+				>
 					Log In
 				</LoginButton>
 			</FormContainer>

@@ -39,8 +39,14 @@ const Form: React.FC = () => {
 		});
 	};
 
-	const logout = () => {
-		auth.signOut();
+	const logout = async () => {
+		try {
+			if (auth.currentUser) {
+				await auth.signOut();
+			}
+		} catch (error) {
+			console.error("Erro ao fazer logout:", error);
+		}
 	};
 
 	return (
