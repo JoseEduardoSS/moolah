@@ -3,7 +3,7 @@ import Dashboard from "./pages/dashboard";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CreateAccount from "./pages/authentication/create-account";
-import AuthGuard from "./guards/AuthGuard";
+import AuthGuard from "./guard/AuthGuard";
 
 const AppRouter: React.FC = () => {
 	return (
