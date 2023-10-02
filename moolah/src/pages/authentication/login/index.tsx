@@ -20,14 +20,7 @@ const Login: React.FC = () => {
 		event.preventDefault();
 
 		try {
-			const userCredential = await signInWithEmailAndPassword(
-				auth,
-				email,
-				password
-			);
-
-			localStorage.setItem("user", JSON.stringify(userCredential.user));
-
+			await signInWithEmailAndPassword(auth, email, password);
 			navigate("/");
 		} catch (error) {
 			console.log("error: ", error);

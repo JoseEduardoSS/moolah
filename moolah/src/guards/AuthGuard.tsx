@@ -1,36 +1,39 @@
 import { Navigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { User } from "firebase/auth";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
 	useEffect(() => {
-		const checkAndUpdateUser = async () => {
-			const currentUser = auth.currentUser;
-
-			if (!currentUser) {
-				const localStorageUserString: string | null =
-					localStorage.getItem("user");
-				const localStorageUser: User =
-					localStorageUserString && JSON.parse(localStorageUserString);
-
-				console.log("localStorageUser: ", localStorageUser);
-
-				if (localStorageUser) {
-					try {
-						await auth.updateCurrentUser(localStorageUser);
-						console.log("Usuário atualizado com sucesso!");
-					} catch (error) {
-						console.error("Erro ao atualizar o usuário:", error);
-					}
-				}
+		const unsubscribe = auth.onAuthStateChanged((user: User | null) => {
+			if (user) {
+				auth
+					.updateCurrentUser(user)
+					.then(() => {
+						setIsAuthenticated(true);
+					})
+					.catch(() => {
+						setIsAuthenticated(false);
+					});
+			} else {
+				setIsAuthenticated(false);
 			}
-		};
+		});
 
-		checkAndUpdateUser();
+		return () => unsubscribe();
 	}, []);
 
-	return <>{auth.currentUser ? children : <Navigate to="/login" replace />}</>;
+	if (isAuthenticated === null) {
+		return <div>Loading...</div>;
+	}
+
+	if (isAuthenticated) {
+		return <>{children}</>;
+	}
+
+	return <Navigate to="/login" replace />;
 };
 
 export default AuthGuard;
