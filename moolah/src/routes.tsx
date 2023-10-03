@@ -17,8 +17,8 @@ const AppRouter: React.FC = () => {
 						</AuthGuard>
 					}
 				/>
-				<Route path="/login" element={<Login />} />
-				<Route path="/create-account" element={<CreateAccount />} />
+				<Route path="/signin" element={<Login />} />
+				<Route path="/signup" element={<CreateAccount />} />
 			</Routes>
 		</Router>
 	);

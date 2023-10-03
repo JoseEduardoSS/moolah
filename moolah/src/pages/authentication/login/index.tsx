@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginOutlined } from "@mui/icons-material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "../../../components/alert";
+import { Divider, Stack } from "@mui/material";
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
@@ -19,11 +20,11 @@ const Login: React.FC = () => {
 
 	const [formError, setFormError] = useState<boolean>(false);
 	const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
-	const [errorMessage, setErrorMessage] = useState<string>("cu");
+	const [errorMessage, setErrorMessage] = useState<string>("");
 
 	const navigate = useNavigate();
 
-	const logIn = async (event: React.SyntheticEvent) => {
+	const signIn = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 
 		try {
@@ -62,32 +63,40 @@ const Login: React.FC = () => {
 
 	return (
 		<Body>
-			<FormContainer onSubmit={logIn}>
-				<FormTitle>Log In</FormTitle>
-				<FormInput
-					{...(formError && { error: true })}
-					variant="filled"
-					type="text"
-					placeholder="Email"
-					value={email}
-					onChange={(event) => setEmail(event.target.value)}
-				/>
-				<FormInput
-					{...(formError && { error: true })}
-					variant="filled"
-					type="password"
-					placeholder="Senha"
-					value={password}
-					onChange={(event) => setPassword(event.target.value)}
-				/>
-				<LoginButton
-					type="submit"
-					variant="outlined"
-					endIcon={<LoginOutlined />}
-				>
-					Log In
-				</LoginButton>
-			</FormContainer>
+			<Stack
+				direction="column"
+				divider={<Divider orientation="horizontal" flexItem />}
+				spacing={0}
+			>
+				<FormContainer onSubmit={signIn}>
+					<FormTitle>Login</FormTitle>
+					<FormInput
+						{...(formError && { error: true })}
+						variant="filled"
+						type="text"
+						placeholder="Email"
+						value={email}
+						onChange={(event) => setEmail(event.target.value)}
+					/>
+					<FormInput
+						{...(formError && { error: true })}
+						variant="filled"
+						type="password"
+						placeholder="Senha"
+						value={password}
+						onChange={(event) => setPassword(event.target.value)}
+					/>
+					<LoginButton
+						type="submit"
+						variant="outlined"
+						endIcon={<LoginOutlined />}
+					>
+						Log In
+					</LoginButton>
+					<div>Criar conta</div>
+				</FormContainer>
+				<div></div>
+			</Stack>
 
 			<Snackbar
 				anchorOrigin={{ vertical: "top", horizontal: "right" }}
