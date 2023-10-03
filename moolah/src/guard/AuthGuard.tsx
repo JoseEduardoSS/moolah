@@ -33,7 +33,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 		return <>{children}</>;
 	}
 
-	return <Navigate to="/login" replace />;
+	return <Navigate to="/signin" replace />;
 };
 
 export default AuthGuard;
