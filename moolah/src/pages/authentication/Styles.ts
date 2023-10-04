@@ -1,12 +1,11 @@
 import { Button, styled, TextField } from "@mui/material";
-import { graphite, grey, lightGrey } from "../../UI/variables";
+import { grey, lightGrey } from "../../UI/variables";
 
 export const Body = styled("div")({
 	height: "100vh",
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
-	background: `linear-gradient(${grey}, ${graphite})`,
 });
 
 export const FormContainer = styled("form")({
@@ -18,13 +17,13 @@ export const FormContainer = styled("form")({
 	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "center",
-});
 
-export const FormTitle = styled("h1")({
-	fontSize: "2rem",
-	fontWeight: "lighter",
-	marginBottom: "20px",
-	color: lightGrey,
+	h1: {
+		fontSize: "2rem",
+		fontWeight: "lighter",
+		marginBottom: "20px",
+		color: lightGrey,
+	},
 });
 
 export const FormInput = styled(TextField)({
@@ -60,5 +59,18 @@ export const LoginButton = styled(Button)({
 
 	"&:hover": {
 		border: `1px solid ${lightGrey}`,
+	},
+});
+
+export const SignupContainer = styled("div")({
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+
+	h2: {
+		fontSize: "1.25rem",
+		fontWeight: "lighter",
+		marginBottom: "20px",
+		color: lightGrey,
 	},
 });

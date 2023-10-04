@@ -2,8 +2,8 @@ import {
 	Body,
 	FormContainer,
 	FormInput,
-	FormTitle,
 	LoginButton,
+	SignupContainer,
 } from "../Styles";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -56,7 +56,7 @@ const Login: React.FC = () => {
 				spacing={0}
 			>
 				<FormContainer onSubmit={signIn}>
-					<FormTitle>Login</FormTitle>
+					<h1>Login</h1>
 					<FormInput
 						{...(formError && { error: true })}
 						variant="filled"
@@ -80,9 +80,10 @@ const Login: React.FC = () => {
 					>
 						Log In
 					</LoginButton>
-					<div>Criar conta</div>
 				</FormContainer>
-				<div></div>
+				<SignupContainer>
+					<h2>Não tem uma conta?</h2>
+				</SignupContainer>
 			</Stack>
 		</Body>
 	);
