@@ -10,17 +10,16 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
 import { LoginOutlined } from "@mui/icons-material";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "../../../components/alert";
 import { Divider, Stack } from "@mui/material";
+import useAlert from "../../../state/alert/hooks/useAlert";
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
 	const [formError, setFormError] = useState<boolean>(false);
-	const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
-	const [errorMessage, setErrorMessage] = useState<string>("");
+
+	const setAlert = useAlert();
 
 	const navigate = useNavigate();
 
@@ -42,23 +41,11 @@ const Login: React.FC = () => {
 
 			const errorMessage = errorMessages[error.code] || errorMessages.default;
 
-			setErrorMessage(errorMessage);
 			setFormError(true);
-			setOpenSnackbar(true);
+			setAlert(true, errorMessage, "error");
 
 			console.log("error: ", error);
 		}
-	};
-
-	const handleCloseSnackbar = (
-		event?: React.SyntheticEvent | Event,
-		reason?: string
-	) => {
-		if (reason === "clickaway") {
-			return;
-		}
-
-		setOpenSnackbar(false);
 	};
 
 	return (
@@ -97,21 +84,6 @@ const Login: React.FC = () => {
 				</FormContainer>
 				<div></div>
 			</Stack>
-
-			<Snackbar
-				anchorOrigin={{ vertical: "top", horizontal: "right" }}
-				open={openSnackbar}
-				autoHideDuration={6000}
-				onClose={handleCloseSnackbar}
-			>
-				<Alert
-					onClose={handleCloseSnackbar}
-					severity="error"
-					sx={{ width: "100%" }}
-				>
-					{errorMessage}
-				</Alert>
-			</Snackbar>
 		</Body>
 	);
 };

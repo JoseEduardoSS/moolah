@@ -18,6 +18,7 @@ import { MovementType } from "../../interfaces/Movement";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Add, Logout } from "@mui/icons-material";
 import { auth } from "../../firebase";
+import useSetAlert from "../../state/alert/hooks/useAlert";
 
 const Form: React.FC = () => {
 	const [movementType, setMovementType] = useState<MovementType>(
@@ -27,6 +28,8 @@ const Form: React.FC = () => {
 	const [tag, setTag] = useState<string>("");
 	const [date, setDate] = useState<Date | null>(null);
 	const [description, setDescription] = useState<string>("");
+
+	const setAlert = useSetAlert();
 
 	const submit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -40,6 +43,7 @@ const Form: React.FC = () => {
 	};
 
 	const logout = async () => {
+		setAlert(true, "Teste Alert", "warning");
 		try {
 			if (auth.currentUser) {
 				await auth.signOut();
