@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
-import { Add, Google, HdrPlus, LoginOutlined } from "@mui/icons-material";
+import { LoginOutlined } from "@mui/icons-material";
 import { Divider, Stack } from "@mui/material";
 import useAlert from "../../../state/alert/hooks/useAlert";
 
