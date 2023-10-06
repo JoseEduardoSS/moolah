@@ -24,12 +24,22 @@ export const FormContainer = styled("form")({
 		marginBottom: "20px",
 		color: lightGrey,
 	},
+
+	p: {
+		fontSize: "1rem",
+		fontWeight: "lighter",
+		color: lightGrey,
+	},
+
+	div: {
+		width: "100%",
+	},
 });
 
 export const FormInput = styled(TextField)({
 	width: "100%",
 	padding: "10px",
-	margin: "10px",
+	margin: "10px 0",
 
 	"& .MuiInputBase-root": {
 		fontFamily: "Lato, sans-serif",
@@ -51,11 +61,11 @@ export const LoginButton = styled(Button)({
 	color: lightGrey,
 	border: `1px solid ${grey}`,
 	padding: "10px 20px",
-	marginTop: "20px",
 	borderRadius: "2.5px",
 	cursor: "pointer",
 	transition: "background-color 0.3s",
 	fontFamily: "Lato, sans-serif",
+	width: "100%",
 
 	"&:hover": {
 		border: `1px solid ${lightGrey}`,
@@ -66,11 +76,23 @@ export const SignupContainer = styled("div")({
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
+	padding: "10px 0px",
 
 	h2: {
 		fontSize: "1.25rem",
 		fontWeight: "lighter",
-		marginBottom: "20px",
 		color: lightGrey,
+		marginBottom: "10px",
 	},
+});
+
+export const GoogleButton = styled(Button)({
+	border: `1px solid #db4a39 `,
+	color: lightGrey,
+	borderRadius: "2.5px",
+	width: "100%",
+});
+
+export const GoogleIcon = styled("img")({
+	marginRight: "10px",
 });

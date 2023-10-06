@@ -2,6 +2,8 @@ import {
 	Body,
 	FormContainer,
 	FormInput,
+	GoogleButton,
+	GoogleIcon,
 	LoginButton,
 	SignupContainer,
 } from "../Styles";
@@ -9,7 +11,7 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
-import { LoginOutlined } from "@mui/icons-material";
+import { Add, Google, HdrPlus, LoginOutlined } from "@mui/icons-material";
 import { Divider, Stack } from "@mui/material";
 import useAlert from "../../../state/alert/hooks/useAlert";
 
@@ -53,7 +55,7 @@ const Login: React.FC = () => {
 			<Stack
 				direction="column"
 				divider={<Divider orientation="horizontal" flexItem />}
-				spacing={0}
+				spacing={1}
 			>
 				<FormContainer onSubmit={signIn}>
 					<h1>Login</h1>
@@ -72,17 +74,29 @@ const Login: React.FC = () => {
 						placeholder="Senha"
 						value={password}
 						onChange={(event) => setPassword(event.target.value)}
+						autoComplete="on"
 					/>
-					<LoginButton
-						type="submit"
-						variant="outlined"
-						endIcon={<LoginOutlined />}
-					>
-						Log In
-					</LoginButton>
+
+					<Stack direction="column" spacing={1}>
+						<LoginButton
+							type="submit"
+							variant="outlined"
+							endIcon={<LoginOutlined />}
+						>
+							Log In
+						</LoginButton>
+						<p>ou</p>
+						<GoogleButton variant="outlined">
+							<GoogleIcon src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />{" "}
+							Acessar com Google
+						</GoogleButton>
+					</Stack>
 				</FormContainer>
+
 				<SignupContainer>
-					<h2>Não tem uma conta?</h2>
+					<LoginButton variant="outlined" onClick={() => navigate("/signup")}>
+						Cadastrar
+					</LoginButton>
 				</SignupContainer>
 			</Stack>
 		</Body>
