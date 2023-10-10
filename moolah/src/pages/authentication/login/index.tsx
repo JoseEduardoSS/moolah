@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginOutlined } from "@mui/icons-material";
 import { Divider, Stack } from "@mui/material";
 import useAlert from "../../../state/alert/hooks/useAlert";
+import { FirebaseError } from "firebase/app";
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
@@ -28,26 +29,34 @@ const Login: React.FC = () => {
 	const signIn = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 
-		try {
-			await signInWithEmailAndPassword(auth, email, password);
-			navigate("/");
-		} catch (error: any) {
-			const errorMessages: Record<string, string> = {
-				"auth/invalid-email": "Email inválido",
-				"auth/user-not-found": "Usuário não encontrado",
-				"auth/missing-password": "Senha não informada",
-				"auth/wrong-password": "Senha incorreta",
-				"auth/invalid-login-credentials": "Email ou senha inválidos",
-				default: "Erro ao fazer login",
-			};
+		signInWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				if (!userCredential.user.emailVerified) {
+					throw new FirebaseError(
+						"auth/email-not-verified",
+						"auth/email-not-verified"
+					);
+				}
+				navigate("/");
+			})
+			.catch((error) => {
+				const errorMessages: Record<string, string> = {
+					"auth/invalid-email": "Email inválido",
+					"auth/user-not-found": "Usuário não encontrado",
+					"auth/missing-password": "Senha não informada",
+					"auth/wrong-password": "Senha incorreta",
+					"auth/invalid-login-credentials": "Email ou senha inválidos",
+					"auth/email-not-verified": "Email não verificado",
+					default: "Erro ao fazer login",
+				};
 
-			const errorMessage = errorMessages[error.code] || errorMessages.default;
+				const errorMessage = errorMessages[error.code] || errorMessages.default;
 
-			setFormError(true);
-			setAlert(true, errorMessage, "error");
+				setFormError(true);
+				setAlert(true, errorMessage, "error");
 
-			console.log("error: ", error);
-		}
+				console.log("error: ", error);
+			});
 	};
 
 	return (
@@ -95,7 +104,7 @@ const Login: React.FC = () => {
 
 				<SignupContainer>
 					<LoginButton variant="outlined" onClick={() => navigate("/signup")}>
-						Cadastrar
+						Criar Conta
 					</LoginButton>
 				</SignupContainer>
 			</Stack>
