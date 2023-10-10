@@ -12,32 +12,47 @@ const CreateAccount: React.FC = () => {
 	const [password, setPassword] = useState<string>("");
 	const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-	const [passwordError, setPasswordError] = useState<boolean>(false);
+	const [passwordError, setPasswordError] = useState<ConstrainBoolean>(false);
+	const [emailError, setEmailError] = useState<boolean>(false);
 
 	const alert = useAlert();
 
-	const signUp = (event: React.SyntheticEvent) => {
+	const signUp = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 
-		//TODO Criar validações para o email e senha
-
-		if (password !== confirmPassword) {
+		if (password.length < 8 || !/\d/.test(password)) {
 			setPasswordError(true);
-			alert(true, "As senhas não coincidem", "error");
+			alert(
+				true,
+				"A senha deve ter no mínimo 8 caracteres, incluindo pelo menos 1 número",
+				"error"
+			);
+			return;
 		} else {
 			setPasswordError(false);
-			alert(false, "As senhas não coincidem", "error");
-
-			createUserWithEmailAndPassword(auth, email, password)
-				.then((userCredential) => {
-					sendEmailVerification(userCredential.user);
-					auth.signOut();
-					alert(true, "Email de confirmação enviado", "info");
-				})
-				.catch((error) => {
-					console.log(error);
-				});
 		}
+
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			setEmailError(true);
+			alert(true, "Email inválido", "error");
+			return;
+		} else {
+			setEmailError(false);
+		}
+
+		createUserWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				sendEmailVerification(userCredential.user);
+				auth.signOut();
+				alert(true, "Email de confirmação enviado", "success");
+			})
+			.catch((error) => {
+				if (error.code === "auth/email-already-in-use") {
+					setEmailError(true);
+					alert(true, "Email já está em uso", "error");
+				}
+			});
 	};
 
 	return (
@@ -45,6 +60,7 @@ const CreateAccount: React.FC = () => {
 			<FormContainer onSubmit={signUp}>
 				<h1>Criar Conta</h1>
 				<FormInput
+					{...(emailError && { error: true })}
 					variant="filled"
 					type="text"
 					placeholder="Email"
@@ -63,7 +79,7 @@ const CreateAccount: React.FC = () => {
 					{...(passwordError && { error: true })}
 					variant="filled"
 					type="password"
-					placeholder="Senha"
+					placeholder="Confirmar Senha"
 					value={confirmPassword}
 					onChange={(event) => setConfirmPassword(event.target.value)}
 				/>

@@ -2,8 +2,6 @@ import {
 	Body,
 	FormContainer,
 	FormInput,
-	GoogleButton,
-	GoogleIcon,
 	LoginButton,
 	SignupContainer,
 } from "../Styles";
@@ -15,6 +13,7 @@ import { LoginOutlined } from "@mui/icons-material";
 import { Divider, Stack } from "@mui/material";
 import useAlert from "../../../state/alert/hooks/useAlert";
 import { FirebaseError } from "firebase/app";
+import GoogleAuth from "../../../components/google-auth";
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
@@ -54,8 +53,6 @@ const Login: React.FC = () => {
 
 				setFormError(true);
 				alert(true, errorMessage, "error");
-
-				console.log("error: ", error);
 			});
 	};
 
@@ -95,10 +92,7 @@ const Login: React.FC = () => {
 							Log In
 						</LoginButton>
 						<p>ou</p>
-						<GoogleButton variant="outlined">
-							<GoogleIcon src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-							Acessar com Google
-						</GoogleButton>
+						<GoogleAuth />
 					</Stack>
 				</FormContainer>
 
