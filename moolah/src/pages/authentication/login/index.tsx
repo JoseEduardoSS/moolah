@@ -22,7 +22,7 @@ const Login: React.FC = () => {
 
 	const [formError, setFormError] = useState<boolean>(false);
 
-	const setAlert = useAlert();
+	const alert = useAlert();
 
 	const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ const Login: React.FC = () => {
 				const errorMessage = errorMessages[error.code] || errorMessages.default;
 
 				setFormError(true);
-				setAlert(true, errorMessage, "error");
+				alert(true, errorMessage, "error");
 
 				console.log("error: ", error);
 			});

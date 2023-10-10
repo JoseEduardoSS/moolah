@@ -20,7 +20,7 @@ const CreateAccount: React.FC = () => {
 	const signUp = (event: React.SyntheticEvent) => {
 		event.preventDefault();
 
-		// Criar validações para o email e senha
+		//TODO Criar validações para o email e senha
 
 		if (password !== confirmPassword) {
 			setPasswordError(true);
