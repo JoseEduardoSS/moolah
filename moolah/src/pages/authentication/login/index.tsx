@@ -96,7 +96,7 @@ const Login: React.FC = () => {
 						</LoginButton>
 						<p>ou</p>
 						<GoogleButton variant="outlined">
-							<GoogleIcon src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />{" "}
+							<GoogleIcon src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
 							Acessar com Google
 						</GoogleButton>
 					</Stack>
