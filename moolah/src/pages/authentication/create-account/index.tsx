@@ -41,6 +41,14 @@ const CreateAccount: React.FC = () => {
 			setEmailError(false);
 		}
 
+		if (password !== confirmPassword) {
+			setPasswordError(true);
+			alert(true, "Senhas não são iguais", "error");
+			return;
+		} else {
+			setPasswordError(false);
+		}
+
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				sendEmailVerification(userCredential.user);
