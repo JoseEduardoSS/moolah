@@ -4,8 +4,10 @@ import {
 	sendEmailVerification,
 } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import useAlert from "../../../state/alert/hooks/useAlert";
+import { doc, setDoc } from "firebase/firestore";
+import { FirebaseError } from "firebase/app";
 
 const CreateAccount: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
@@ -49,18 +51,38 @@ const CreateAccount: React.FC = () => {
 			setPasswordError(false);
 		}
 
-		createUserWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-				sendEmailVerification(userCredential.user);
-				auth.signOut();
-				alert(true, "Email de confirmação enviado", "success");
-			})
-			.catch((error) => {
-				if (error.code === "auth/email-already-in-use") {
-					setEmailError(true);
-					alert(true, "Email já está em uso", "error");
-				}
+		try {
+			const userCredential = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
+
+			const userRef = doc(db, "users", userCredential.user.uid);
+			await setDoc(userRef, {
+				email: userCredential.user.email,
+				uid: userCredential.user.uid,
 			});
+
+			await sendEmailVerification(userCredential.user);
+
+			auth.signOut();
+
+			alert(true, "Email de confirmação enviado", "success");
+		} catch (error) {
+			console.log(error);
+			if (
+				error instanceof FirebaseError &&
+				error.code === "auth/email-already-in-use"
+			) {
+				setEmailError(true);
+				alert(true, "Email já está em uso", "error");
+			} else {
+				alert(true, "Erro ao criar conta", "error");
+			}
+
+			auth.currentUser?.delete();
+		}
 	};
 
 	return (
