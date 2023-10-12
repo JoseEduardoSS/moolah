@@ -6,7 +6,7 @@ import {
 import React, { useState } from "react";
 import { auth, db } from "../../../firebase";
 import useAlert from "../../../state/alert/hooks/useAlert";
-import { doc, setDoc } from "firebase/firestore";
+import { Timestamp, doc, setDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 
 const CreateAccount: React.FC = () => {
@@ -62,6 +62,9 @@ const CreateAccount: React.FC = () => {
 			await setDoc(userRef, {
 				email: userCredential.user.email,
 				uid: userCredential.user.uid,
+				movements: [],
+				tags: [],
+				createdAt: Timestamp.now(),
 			});
 
 			await sendEmailVerification(userCredential.user);

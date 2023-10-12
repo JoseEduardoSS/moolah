@@ -17,7 +17,9 @@ import { FormStyled } from "./Styles";
 import { MovementType } from "../../interfaces/Movement";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Add, Logout } from "@mui/icons-material";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import useAlert from "../../state/alert/hooks/useAlert";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 
 const Form: React.FC = () => {
 	const [movementType, setMovementType] = useState<MovementType>(
@@ -28,15 +30,28 @@ const Form: React.FC = () => {
 	const [date, setDate] = useState<Date | null>(null);
 	const [description, setDescription] = useState<string>("");
 
-	const submit = (event: FormEvent<HTMLFormElement>) => {
+	const alert = useAlert();
+
+	const submit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log({
-			movementType,
-			amount,
-			tag,
-			date,
-			description,
-		});
+
+		const user = auth.currentUser;
+
+		if (user) {
+			const movementRef = collection(db, "users", user.uid, "movements");
+			await addDoc(movementRef, {
+				movementType: movementType,
+				amount: amount,
+				tag: tag,
+				date: new Date(date as Date),
+				description: description,
+				createdAt: Timestamp.now(),
+			});
+
+			alert(true, "Adicionado com sucesso!", "success");
+		} else {
+			alert(true, "Erro ao adicionar movimentação", "error");
+		}
 	};
 
 	const logout = async () => {

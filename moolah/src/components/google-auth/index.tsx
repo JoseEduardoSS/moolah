@@ -18,6 +18,8 @@ const GoogleAuth: React.FC = () => {
 			await setDoc(userRef, {
 				email: userCredential.user.email,
 				uid: userCredential.user.uid,
+				movements: [],
+				tags: [],
 				createdAt: Timestamp.now(),
 			});
 
