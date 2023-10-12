@@ -62,9 +62,7 @@ const CreateAccount: React.FC = () => {
 			await setDoc(userRef, {
 				email: userCredential.user.email,
 				uid: userCredential.user.uid,
-				movements: [],
-				tags: [],
-				createdAt: Timestamp.now(),
+				createdAt: new Date().toISOString().split("T")[0],
 			});
 
 			await sendEmailVerification(userCredential.user);

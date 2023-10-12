@@ -1,13 +1,13 @@
 import { AlertColor } from "@mui/material";
 import { atom } from "recoil";
 
-type AlertState = {
+type AlertProps = {
 	open: boolean;
 	message: string;
 	severity: AlertColor | undefined;
 };
 
-export const alertState = atom<AlertState>({
+export const alertState = atom<AlertProps>({
 	key: "alertState",
 	default: {
 		open: false,

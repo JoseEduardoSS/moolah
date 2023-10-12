@@ -19,7 +19,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { Add, Logout } from "@mui/icons-material";
 import { auth, db } from "../../firebase";
 import useAlert from "../../state/alert/hooks/useAlert";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 const Form: React.FC = () => {
 	const [movementType, setMovementType] = useState<MovementType>(
@@ -43,9 +43,9 @@ const Form: React.FC = () => {
 				movementType: movementType,
 				amount: amount,
 				tag: tag,
-				date: new Date(date as Date),
+				date: new Date(date as Date).toISOString().split("T")[0],
 				description: description,
-				createdAt: Timestamp.now(),
+				createdAt: new Date().toISOString().split("T")[0],
 			});
 
 			alert(true, "Adicionado com sucesso!", "success");
