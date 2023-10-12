@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
 	Paper,
 	TableBody,
@@ -9,36 +9,10 @@ import {
 } from "@mui/material";
 import { Movement } from "../../interfaces/Movement";
 import { TableStyled } from "./Styles";
-import { collection, onSnapshot } from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import useGetMovements from "../../state/movements/hooks/useGetMovements";
 
 const Table: React.FC = () => {
-	const [movements, setMovements] = useState<Movement[]>([]);
-
-	const user = auth.currentUser;
-
-	useEffect(() => {
-		if (!user) {
-			return;
-		}
-		const unsubscribe = onSnapshot(
-			collection(db, "users", user.uid, "movements"),
-			(snapshot) => {
-				const movements: Movement[] = snapshot.docs.map((doc) => {
-					return {
-						id: doc.id,
-						movementType: doc.data().movementType,
-						amount: doc.data().amount,
-						tag: doc.data().tag,
-						date: new Date(doc.data().date),
-						description: doc.data().description,
-					} as Movement;
-				});
-				setMovements(movements);
-			}
-		);
-		return () => unsubscribe();
-	}, [user]);
+	const movements: Movement[] = useGetMovements();
 
 	return (
 		<TableContainer component={Paper}>
