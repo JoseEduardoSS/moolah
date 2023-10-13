@@ -16,7 +16,7 @@ const Table: React.FC = () => {
 
 	return (
 		<TableContainer component={Paper}>
-			<TableStyled aria-label="simple table">
+			<TableStyled size="small">
 				<TableHead>
 					<TableRow>
 						<TableCell>Tipo</TableCell>
