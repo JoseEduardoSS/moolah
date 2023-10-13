@@ -37,19 +37,28 @@ const Form: React.FC = () => {
 
 		const user = auth.currentUser;
 
-		if (user) {
-			const movementRef = collection(db, "users", user.uid, "movements");
-			await addDoc(movementRef, {
-				movementType: movementType,
-				amount: amount,
-				tag: tag,
-				date: new Date(date as Date).toISOString().split("T")[0],
-				description: description,
-				createdAt: new Date().toISOString().split("T")[0],
-			});
+		if (!movementType || amount === 0 || !tag || !date || !description) {
+			alert(true, "Preencha todos os campos corretamente", "error");
+			return;
+		}
 
-			alert(true, "Adicionado com sucesso!", "success");
-		} else {
+		try {
+			if (user) {
+				const movementRef = collection(db, "users", user.uid, "movements");
+				await addDoc(movementRef, {
+					movementType: movementType,
+					amount: amount,
+					tag: tag,
+					date: new Date(date as Date).toISOString().split("T")[0],
+					description: description,
+					createdAt: new Date().toISOString().split("T")[0],
+				});
+
+				alert(true, "Adicionado com sucesso!", "success");
+			} else {
+				alert(true, "Erro ao adicionar movimentação", "error");
+			}
+		} catch (error) {
 			alert(true, "Erro ao adicionar movimentação", "error");
 		}
 	};
@@ -94,7 +103,6 @@ const Form: React.FC = () => {
 
 				<TextField
 					fullWidth
-					required
 					id="amount-input"
 					label="Valor"
 					type="number"
@@ -110,7 +118,7 @@ const Form: React.FC = () => {
 					onChange={(event) => setAmount(Number(event.target.value))}
 				/>
 
-				<FormControl required fullWidth>
+				<FormControl fullWidth>
 					<InputLabel id="select-tag-label">Tag</InputLabel>
 					<Select
 						labelId="select-tag-label"

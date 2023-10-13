@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AppContainer } from "./Styles";
+import { DashboardContainer } from "./Styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import Form from "../../components/form";
@@ -38,12 +38,12 @@ const Dashboard: React.FC = () => {
 	}, [setMovements, user]);
 
 	return (
-		<AppContainer>
+		<DashboardContainer>
 			<LocalizationProvider dateAdapter={AdapterDayjs}>
 				<Form />
 				<Table />
 			</LocalizationProvider>
-		</AppContainer>
+		</DashboardContainer>
 	);
 };
 

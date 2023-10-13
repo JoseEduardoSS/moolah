@@ -6,7 +6,7 @@ import {
 import React, { useState } from "react";
 import { auth, db } from "../../../firebase";
 import useAlert from "../../../state/alert/hooks/useAlert";
-import { Timestamp, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 
 const CreateAccount: React.FC = () => {
