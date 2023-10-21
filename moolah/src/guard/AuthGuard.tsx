@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { User } from "firebase/auth";
+import LoadingPage from "../components/loading-page";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -26,7 +27,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 	}, []);
 
 	if (isAuthenticated === null) {
-		return <div>Loading...</div>;
+		return <LoadingPage />;
 	}
 
 	if (isAuthenticated) {
